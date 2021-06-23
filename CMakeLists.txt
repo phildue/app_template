@@ -17,7 +17,7 @@ conan_cmake_autodetect(settings)
 
 conan_cmake_install(PATH_OR_REFERENCE .
                     BUILD missing
-                    REMOTE conan-center
+                   # REMOTE conan-center conanbins
                     SETTINGS ${settings})
                     
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
@@ -29,5 +29,12 @@ endif()
 
 add_executable(${PROJECT_NAME} src/app.cpp)
 target_link_libraries(${PROJECT_NAME} PD::MyLibrary)
+
+install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Targets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
+    )
 
 
